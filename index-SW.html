@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>STAR WARS</title>
+    <!-- Stylesheet bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<header class="header-area">
+    <!-- Main navigation-->
+    <div class="container w-100">
+        <nav class="navigation d-flex justify-content-around flex-row">
+            <!-- Logo -->
+            <a href="index-SW.html" class="star_wars_logo">
+                <img src="img/sw.svg" style="object-fit: contain; width: 135px; height: 70px;" alt="">
+            </a>
+            <!-- Menu (language and gamma theme of site)-->
+            <div class="nav-content d-flex justify-content-around flex-row w-100">
+                <div class="nav d-flex align-items-center justify-content-around flex-row w-50">
+                    <ul id="menu" class="d-flex justify-content-around flex-row w-100">
+                        <li class="language d-inline-block"><a href="#">Language</a>
+                            <!--<ul class="dropdown">-->
+                                <!--<li id="US"><a href="#">Eng</a></li>-->
+                                <!--<li id="UA"><a href="#">Ukr</a></li>-->
+                            <!--</ul>-->
+                        </li>
+                        <li class="day_or_night d-inline-block"><a href="#">Day or night</a>
+                            <!--<ul class="dropdown">-->
+                                <!--<li id="day"><a href="#">Day</a></li>-->
+                                <!--<li id="night"><a href="#">Night</a></li>-->
+                            <!--</ul>-->
+                        </li>
+                    </ul>
+                </div>
+                <!-- Search-->
+                <div class="search d-flex align-items-center">
+                    <div class="top-search-area">
+                        <form action="index.html" method="post">
+                            <input type="search" name="top-search" id="topSearch"
+                                   placeholder="Search and hit enter...">
+                            <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- End main navigation-->
+</header>
+
+<section class="star-wars-info-area flex-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center w-100">
+                <!-- Table with data about heroes of film -->
+                <div class="title_and_table d-flex justify-content-center flex-column w-75">
+                    <!-- Section Title -->
+                    <div class="section-heading">
+                        <h1 class="title text-center">Characters of Star wars</h1>
+                    </div>
+                    <table class="align-items-center text-center w-100">
+                        <thead>
+                        <th>Name of hero</th>
+                        <th>Birth year</th>
+                        <th>Gender</th>
+                        <!--<th class="w-50">Starship</th>-->
+                        </thead>
+                        <tbody class="main_table_content">
+                        </tbody>
+                    </table>
+                    <div class="pagination d-flex justify-content-around w-100">
+                        <a href="#" class="prev"><< PREV</a>
+                        <a href="#" class="next">NEXT >></a>
+                    </div>
+                </div>
+                <!-- Hero info -->
+                <div class="hero_info">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Footer Area Start -->
+<footer class="footer-area d-flex justify-content-end flex-column">
+        <!-- Copywrite Area -->
+    <div class="copywrite-area">
+        <div class="container">
+            <div class="row">
+                <!-- Copywrite Text -->
+                <div class="col-12">
+                    <p class="copywrite-text text-center">
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                        All rights reserved
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--Footer  End-->
+
+<!-- All Javascript Script-->
+
+<!-- Bootstrap js -->
+<script src="js/bootstrap/bootstrap.min.js"></script>
+
+<!-- Main js -->
+<script src="js/main-SW.js"></script>
+
+</body>
+
+</html>
