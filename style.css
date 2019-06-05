@@ -60,7 +60,7 @@ img {
 .footer-area .copywrite-area {
   padding: 30px 0; }
 
-.prev, .next {
+.prev, .next, .back {
   padding: 5px 20px;
   border: 1px solid #fff;
   background-color: #f8d7da; }
@@ -71,9 +71,100 @@ img {
 .section-heading .title {
   padding: 15px 0; }
 
-.title_and_table {
-  display: block; }
+.title_and_table_flex {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 70%;
+  margin: auto; }
 
-.star-wars-info-area .hero_info {
-  display: none;
-  width: 100%; }
+.title_and_table_none {
+  display: none; }
+
+.hero_info_flex {
+  display: flex;
+  flex-basis: 100%;
+  justify-content: space-around;
+  flex-direction: row; }
+  .hero_info_flex .img_info {
+    display: block;
+    width: 25%;
+    height: 400px;
+    background-size: cover; }
+    .hero_info_flex .img_info img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover; }
+  .hero_info_flex .text_info {
+    width: 70%;
+    height: 400px;
+    align-items: center;
+    text-align: left; }
+    .hero_info_flex .text_info .content {
+      height: 400px;
+      text-align: left;
+      align-items: center; }
+
+.hero_info_none {
+  display: none; }
+
+body {
+  position: relative; }
+  body .closeWindow {
+    display: block;
+    position: absolute;
+    margin: 0;
+    z-index: 2;
+    top: -23px;
+    right: -37px;
+    font-size: 20px;
+    transform: rotate(45deg);
+    border-radius: 50%;
+    padding: 0 9px;
+    background-color: #f2f4f5;
+    border: 2px solid #000; }
+    body .closeWindow:hover {
+      color: red;
+      border: 2px solid red; }
+  body .bg_for_data {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 800px;
+    background-color: #111;
+    opacity: 0.5; }
+  body .main_info {
+    display: flex;
+    position: absolute;
+    z-index: 2;
+    flex-basis: 40%;
+    top: 20vh;
+    left: 25%;
+    height: 400px;
+    margin: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #f2f4f5;
+    border: 2px solid #000; }
+    body .main_info .img_info {
+      display: block;
+      text-align: center;
+      align-items: center;
+      width: 45%;
+      height: 99vh; }
+      body .main_info .img_info img {
+        object-fit: contain;
+        width: 100%;
+        height: 396px; }
+    body .main_info .text_info {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      text-align: left;
+      width: 50%;
+      height: 100%; }
+      body .main_info .text_info h2 {
+        width: 100%;
+        text-align: center; }
