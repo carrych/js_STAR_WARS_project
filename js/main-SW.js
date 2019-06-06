@@ -266,22 +266,27 @@ function moreInfo() {
 
     console.log("alo" + elementsWithName.length);
 
-    // let kapysta = () => console.log("haphap");
+    // for (let i = 0; i < elementsWithName.length; i++) {
+    //     console.log('clean event');
+    //     elementsWithName[i].removeEventListener('click',  () => {
+    //         switchDisplay(table, hero_info);
+    //         showDataAboutHero(tempDataAboutOneHero);
+    //     }, false);
+    // }
     for (let i = 0; i < elementsWithName.length; i++) {
         const tempDataAboutOneHero = sessionStorage.getArr(`hero_${pagination.currentDecade + i + 1}`);
         console.log("otdaem: " + tempDataAboutOneHero);
         elementsWithName[i].setAttribute('href', '#');
-        elementsWithName[i].addEventListener('click', () => {
+        elementsWithName[i].addEventListener('click',  () => {
             switchDisplay(table, hero_info);
             showDataAboutHero(tempDataAboutOneHero);
         }, false);
     }
+
 }
 
 function showDataAboutHero(in_tempDataAboutOneHero) {
-    const table = document.querySelector(".title_and_table_none"),
-        hero_info = document.querySelector(".hero_info_flex"),
-        elP = document.querySelector('.content'),
+    const elP = document.querySelector('.content'),
         elImg = document.createElement('img'),
         parentElForImg = document.querySelector('.img_info'),
         planetInfo = in_tempDataAboutOneHero[indexForPlanet][0],
@@ -290,6 +295,7 @@ function showDataAboutHero(in_tempDataAboutOneHero) {
     console.log("data yaka prushla: " + planetInfo + " hop " + starShipInfo + " hop " + vehicelInfo);
     elImg.setAttribute('src', in_tempDataAboutOneHero[16]);
     elImg.setAttribute('ng-src', in_tempDataAboutOneHero[16]);
+    // elImg.setAttribute('onerror', placeholder);
     parentElForImg.appendChild(elImg);
     elP.innerHTML = `
             <strong>Name: </strong> ${in_tempDataAboutOneHero[0]} ;<br>
@@ -352,8 +358,6 @@ function showDataAboutHero(in_tempDataAboutOneHero) {
 
     for (let i = 0; i < tempShips.length; i++)
         addEventContentOnClick(tempShips[i], sessionStorage.getArr(starShipInfo[i]), categories[2]);
-
-    btnBack(table, hero_info);
 }
 
 function addEventContentOnClick(in_newNode, in_tempData, in_category) {
@@ -441,57 +445,61 @@ function showDataAboutCategory(in_tempData, in_categories) {
 }
 
 function switchDisplay(in_table, in_hero_info) {
-    console.log('tyt switchDisplay ' + switchDisplay.trigger);
+    console.log('tyt switchDisplay');
     if (!switchDisplay.trigger) {
         console.log("table none");
-        let tempImg = document.querySelector('.img_info');
-        tempImg.removeChild(tempImg.children[0]);
         in_table.className = 'title_and_table_flex w-75';
         in_hero_info.className = 'hero_info_none';
+        let tempImg = document.querySelector('.img_info');
+        tempImg.removeChild(tempImg.children[0]);
         switchDisplay.trigger = true;
-        // tempContent.innerHTML = '';
     }
     else {
         console.log("table flex");
         in_table.className = 'title_and_table_none';
-        in_hero_info.className = 'hero_info_flex';
+        in_hero_info.className = 'hero_info_flex w-100';
         switchDisplay.trigger = false;
     }
 }
 
 switchDisplay.trigger = true;
 
-function btnBack(in_table, in_hero_info) {
-    let btn = document.querySelector('.back');
-    btn.addEventListener('click', () => {
-        switchDisplay(in_table, in_hero_info);
-    }, false);
-}
-
 function pagination() {
 
     let next = document.querySelector(".next"),
         prev = document.querySelector(".prev"),
-        currentPage = 1;
+        back = document.querySelector(".back"),
+        currentPage = 1,
+        table = document.querySelector(".title_and_table_flex"),
+        hero_info = document.querySelector(".hero_info_none");
+
+    back.addEventListener('click', () => {
+        switchDisplay(table, hero_info)
+    });
+
     next.addEventListener("click", function () {
         if (currentPage >= pagination.minPage && currentPage < pagination.maxPage) {
             currentPage++;
-            ReRender(setCurrentDecade(currentPage));
+            setCurrentDecade(currentPage);
+            ReRender();
         }
         else if (currentPage === pagination.maxPage) {
             currentPage = pagination.minPage;
-            ReRender(setCurrentDecade(currentPage));
+            setCurrentDecade(currentPage);
+            ReRender();
         }
     });
 
     prev.addEventListener("click", function () {
         if (currentPage <= pagination.maxPage && currentPage > pagination.minPage) {
             currentPage--;
-            ReRender(setCurrentDecade(currentPage));
+            setCurrentDecade(currentPage);
+            ReRender();
         }
         else if (currentPage === pagination.minPage) {
             currentPage = pagination.maxPage;
-            ReRender(setCurrentDecade(currentPage));
+            setCurrentDecade(currentPage);
+            ReRender();
         }
     });
 }
@@ -535,51 +543,76 @@ function starShips(data, parentEl, childEl, numberOfStarships) {
 starShips.ship_name = ``;
 starShips.clone_or_reRender = true;
 
-function createTable(data) {// stvorennya tabluci
+function createTable(data = 'hero_') {// stvorennya tabluci
     showData(data);
-
     let parentEl = document.querySelector('.main_table_content');
 
-    for (let i = 0; i < data.results.length; i++) {
-        let trEl = document.createElement("tr"), tdElWithName = document.createElement("td"),
-            aEl = document.createElement("a"), tdElAther = document.createElement("td");
-        parentEl.appendChild(trEl);
-        aEl.innerHTML = data.results[i].name;
-        tdElWithName.appendChild(aEl);
-        trEl.appendChild(tdElWithName);
+    if (data !== 'hero_') {
+        for (let i = 0, max = data.results.length; i < max; i++) {
+            let trEl = document.createElement("tr"), tdElWithName = document.createElement("td"),
+                aEl = document.createElement("a"), tdElAther = document.createElement("td");
+            parentEl.appendChild(trEl);
+            aEl.innerHTML = data.results[i].name;
+            tdElWithName.appendChild(aEl);
+            trEl.appendChild(tdElWithName);
 
-        cloneAndAppendNewNode(trEl, tdElAther, data.results[i].birth_year);
-        cloneAndAppendNewNode(trEl, tdElAther, data.results[i].gender);
+            cloneAndAppendNewNode(trEl, tdElAther, data.results[i].birth_year);
+            cloneAndAppendNewNode(trEl, tdElAther, data.results[i].gender);
+        }
+    }
+    else {
+
+        while (parentEl.firstChild)
+            parentEl.removeChild(parentEl.firstChild);
+
+        console.log('newTable');
+
+        for (let i = 0, max = 10; i < max; i++) {
+            let trEl = document.createElement("tr"),
+                tdElWithName = document.createElement("td"),
+                aEl = document.createElement("a"),
+                tdElAther = document.createElement("td"),
+                tempInfoAboutHero = sessionStorage.getArr(`${data}${i + 1 + pagination.currentDecade}`);
+            parentEl.appendChild(trEl);
+            aEl.innerHTML = tempInfoAboutHero[0];
+            tdElWithName.appendChild(aEl);
+            trEl.appendChild(tdElWithName);
+
+            cloneAndAppendNewNode(trEl, tdElAther, tempInfoAboutHero[6]);
+            cloneAndAppendNewNode(trEl, tdElAther, tempInfoAboutHero[7]);
+        }
     }
 }
 
-function ReRender(currentDecade) {
-    const arrOftd = document.querySelectorAll("td");
-    console.log("td elementov:" + arrOftd.length);
-    let cntr_1 = 0;
-    console.log("DECADE:" + pagination.currentDecade);
-    for (let i = 1; i <= ReRender.maxPeopleOnThePage; i++) {
-
-        const tempNumberOfHero = i + currentDecade;
-
-        if (tempNumberOfHero > ReRender.maxPeopleInTheTable) {
-            arrOftd[cntr_1++].querySelector("a").innerHTML = `-`;
-            arrOftd[cntr_1++].innerHTML = `-`;
-            arrOftd[cntr_1++].innerHTML = `-`;
-
-        }
-        else {
-            const tempDataAboutOneHero = sessionStorage.getArr(`hero_${currentDecade + i}`);
-
-            if (arrOftd[cntr_1].querySelector("a"))
-                arrOftd[cntr_1++].querySelector("a").innerHTML = tempDataAboutOneHero[0];
-
-            arrOftd[cntr_1++].innerHTML = tempDataAboutOneHero[6];
-            arrOftd[cntr_1++].innerHTML = tempDataAboutOneHero[7];
-            console.log("cntr:" + cntr_1);
-        }
-    }
+function ReRender() {
+    createTable();
     moreInfo();
+    // const arrOftd = document.querySelectorAll("td");
+    // console.log("td elementov:" + arrOftd.length);
+    // let cntr_1 = 0;
+    // console.log("DECADE:" + pagination.currentDecade);
+    // for (let i = 1; i <= ReRender.maxPeopleOnThePage; i++) {
+    //
+    //     const tempNumberOfHero = i + currentDecade;
+    //
+    //     if (tempNumberOfHero > ReRender.maxPeopleInTheTable) {
+    //         arrOftd[cntr_1++].querySelector("a").innerHTML = `-`;
+    //         arrOftd[cntr_1++].innerHTML = `-`;
+    //         arrOftd[cntr_1++].innerHTML = `-`;
+    //
+    //     }
+    //     else {
+    //         const tempDataAboutOneHero = sessionStorage.getArr(`hero_${currentDecade + i}`);
+    //
+    //         if (arrOftd[cntr_1].querySelector("a"))
+    //             arrOftd[cntr_1++].querySelector("a").innerHTML = tempDataAboutOneHero[0];
+    //
+    //         arrOftd[cntr_1++].innerHTML = tempDataAboutOneHero[6];
+    //         arrOftd[cntr_1++].innerHTML = tempDataAboutOneHero[7];
+    //         console.log("cntr:" + cntr_1);
+    //     }
+    // }
+    // moreInfo();
 }
 
 ReRender.catchEl = null;
